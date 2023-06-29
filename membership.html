@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* Add some basic styling */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Style the membership card */
+      .membership-card {
+        width: 300px;
+        background-color: red;
+        border: 5px dotted black;
+        padding: 20px;
+        margin: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      /* Style the membership card details */
+      .membership-card h2,
+      .membership-card p {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      function generateMembershipCard() {
+        // Get form values
+        var name = document.getElementById("name").value;
+        var membershipType = document.getElementById("membership-type").value;
+        var membershipDuration = document.getElementById(
+          "membership-duration"
+        ).value;
+
+        // Generate the membership card dynamically
+        var cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = `
+            <div class="membership-card">
+              <h2>Membership Card</h2>
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Membership Type:</strong> ${membershipType}</p>
+              <p><strong>Duration:</strong> ${membershipDuration}</p>
+            </div>
+          `;
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Membership form -->
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="membership-type">Membership Type:</label>
+      <input
+        type="text"
+        id="membership-type"
+        name="membership-type"
+        required
+      /><br /><br />
+
+      <label for="membership-duration">Membership Duration:</label>
+      <input
+        type="text"
+        id="membership-duration"
+        name="membership-duration"
+        required
+      /><br /><br />
+
+      <button type="button" onclick="generateMembershipCard()">
+        Generate Card
+      </button>
+    </form>
+
+    <!-- Container to display the membership card -->
+    <div id="card-container"></div>
+  </body>
+</html>

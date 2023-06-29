@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <link rel="stylesheet" href="contactform.css" />
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-database.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+  <body>
+    <div class="container">
+      <form id="contactForm">
+        <h2>GET IN TOUCH</h2>
+        <div class="alert alert-success p-1 text-center" role="alert">
+          Form Submitted Successfully!
+        </div>
+        <input
+          type="text"
+          id="name"
+          name="NAME"
+          placeholder="Your name"
+          required
+        />
+        <input
+          type="email"
+          id="email"
+          name="Email"
+          placeholder="Email id"
+          required
+        />
+        <input
+          type="text"
+          id="phone"
+          name="Phone"
+          placeholder="Phone number"
+          required
+        />
+        <input type="text" id="age" name="Age" placeholder="Age" required />
+        <input
+          type="text"
+          id="membership-type"
+          name="Membership-type"
+          placeholder="Membership Type"
+          required
+        />
+        <input
+          type="text"
+          id="membership-duration"
+          name="Membership-duration"
+          placeholder="Membership duration"
+          required
+        />
+
+        <textarea
+          name="Message"
+          id="message"
+          rows="3"
+          placeholder="How Can we help you"
+          required
+        ></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const form = document.getElementById("contactForm");
+      const alert = document.querySelector(".alert");
+      const firebaseConfig = {
+        apiKey: "AIzaSyD5K3D2KVMYffe5nodV9CXMUlC10ioO_H8",
+        authDomain: "contact-form-661ad.firebaseapp.com",
+        databaseURL: "https://contact-form-661ad-default-rtdb.firebaseio.com",
+        projectId: "contact-form-661ad",
+        storageBucket: "contact-form-661ad.appspot.com",
+        messagingSenderId: "807238475006",
+        appId: "1:807238475006:web:82f06c9ef4c34c95b899af",
+        measurementId: "G-3Z0Y82G204",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      const database = firebase.database();
+      const ref = database.ref("messages");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+        const phone = document.getElementById("phone").value;
+        const membership = document.getElementById("membership-type").value;
+
+        ref.push({
+          name: name,
+          email: email,
+          message: message,
+          phone: phone,
+          membership: membership,
+        });
+
+        alert.style.display = "block";
+        setTimeout(() => {
+          alert.style.display = "none";
+        }, 2000);
+
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
