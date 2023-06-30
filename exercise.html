@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .result {
+      color: red;
+      font-weight: bolder;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h2>Exercise and workout suggestion:</h2>
+      <p>
+        Select one muscle group targeted by the exercise:
+        <br />
+        <br /><select id="select1">
+          <option value="abdominals">Abdominals</option>
+          <option value="abductors">Abductors</option>
+          <option value="adductors">Adductors</option>
+          <option value="biceps">Biceps</option>
+          <option value="calves">Calves</option>
+          <option value="chest">Chest</option>
+          <option value="forearms">Forearms</option>
+          <option value="lower_back">Lower Back</option>
+          <option value="middle_back">Middle Back</option>
+          <option value="lats">Lats</option>
+          <option value="triceps">Triceps</option>
+          <option value="neck">Necks</option>
+          <option value="quadriceps">Quadriceps</option>
+        </select>
+      </p>
+      <br />
+      <button onclick="getOption()">Check the routine</button><br />
+    </div>
+    <div class="suggestion">
+      <p>Name of the muscle:</p>
+      <p id="name" class="result"></p>
+      <p>Exercise type:</p>
+      <p id="type" class="result"></p>
+      <p>Difficulty level of the exercise:</p>
+      <p id="diff" class="result"></p>
+      <p>Equipment required:</p>
+      <p id="equip" class="result"></p>
+      <p>Instructions for the exercise:</p>
+      <p id="inst" class="result"></p>
+    </div>
+    <script>
+      const apiKey = "LTn5vNHSA0riVDyddRz5uA==jIbmWG57OnnvDyk4";
+      const options = {
+        method: "GET",
+        headers: {
+          "X-Api-Key": apiKey,
+        },
+      };
+      async function getOption() {
+        var muscle = document.getElementById("select1").value;
+        const apiUrl =
+          "https://api.api-ninjas.com/v1/exercises?muscle=" + muscle;
+        const response = await fetch(apiUrl, options);
+        var data = await response.json();
+        document.getElementById("name").innerText = data[0].name;
+        document.getElementById("type").innerText = data[0].type;
+        document.getElementById("diff").innerText = data[0].difficulty;
+        document.getElementById("equip").innerText = data[0].equipment;
+        document.getElementById("inst").innerText = data[0].instructions;
+      }
+    </script>
+  </body>
+</html>
