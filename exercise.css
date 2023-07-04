@@ -1,0 +1,124 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+:root {
+  --dk-violet: hsl(268, 75%, 9%);
+  --lt-violet: hsl(268, 47%, 21%);
+  --lt-violet2: hsl(281, 89%, 26%);
+  --vb-violet: hsl(285, 91%, 52%);
+  --vb-violet2: hsl(290, 70%, 36%);
+
+  --vb-yellow: hsl(52, 100%, 62%);
+
+  --pl-white: hsl(0, 0%, 100%);
+
+  --vb-cyan: hsl(176, 100%, 44%);
+  --vb-cyan2: hsl(177, 92%, 70%);
+  --dk-text: hsl(198, 20%, 13%);
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    231deg,
+    rgba(22, 6, 40, 1) 0%,
+    rgba(52, 28, 79, 1) 50%,
+    rgba(88, 7, 125, 1) 100%
+  );
+}
+.container {
+  margin: 20px;
+  padding: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.input-container {
+  background-color: var(--dk-violet);
+  border-bottom: 0.35rem solid var(--lt-violet2);
+  margin: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.input-container p {
+  font-size: 1.2rem;
+}
+
+h2 {
+  color: var(--pl-white);
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.custom-select {
+  background-color: var(--vb-yellow);
+  padding: 5px;
+  border-radius: 10px;
+  font-size: large;
+  font-weight: bold;
+}
+
+.input-container button {
+  width: 30%;
+  background-color: var(--vb-yellow);
+  padding: 5px;
+  border-radius: 10px;
+  font-size: large;
+  font-weight: bold;
+  border: none;
+  justify-content: center;
+}
+.input-container button:hover {
+  cursor: pointer;
+  background-color: hsl(285, 54%, 67%);
+}
+.card-container {
+  display: none;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-transform: capitalize;
+}
+.card-container.active {
+  display: flex;
+}
+
+.card {
+  display: flex;
+  width: 30%;
+  background-color: var(--lt-violet);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-shrink: 1;
+  padding: 15px;
+  justify-content: start;
+  align-items: center;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+.card h4 {
+  color: var(--vb-yellow);
+}

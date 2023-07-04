@@ -12,10 +12,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-color: black;">
     <div class="navbar navbar-default">
         <div class="navbar-header">
-            <h1>Login Form</h1>
+            <h1>Login/registration Form</h1>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
@@ -25,15 +25,16 @@
         </div>
         <div class="navbar-collapse collapse"  >
             <ul class="nav navbar-nav navbar-right">
-                 <li><a href="#" id="logout" style="display: none;">Log Out</a></li>
+                 <li><a href="mainPage.html" id="logout" style="display: none;">Log Out</a></li>
             </ul>
         </div>
         </div>
         <br>
-        <div class="container">  
+        <div class="container" style="background-color: darkturquoise;">  
+          <h3>Registration form </h3>
+          <h3 style="margin-top: 0; padding-top: 0;">If already a account? Then Login</h3>
           <form name="registration_form" id="registration_form" method="post" action="#" enctype="multipart/form-data" >
           <div class="row">
-        
             <div class="col-sm-4">
                 <div class="form-group">
                   <label for="email">Email</label>
@@ -44,12 +45,17 @@
                   <label for="password" >Password</label>
                   <input type="password" name="password" id="password" class="form-control"  placeholder="Enter your password">
                 </div>
-                <button type="button" id="register" name="register" class="btn btn-success">Register Now</button>
+                <div class="form-group">
+                  <label for="cpassword" > Confirm Password</label>
+                  <input type="password" name="cpassword" id="cpassword" class="form-control"  placeholder="Enter your password">
+                </div>
+                <button type="button" id="register" name="register" class="btn btn-success" onclick="validiateForm()">Register Now</button>
             </div><!-- end col -->
             </form>
-            <div class="col-sm-4">
-                <img src="/images/icon-1.png">
+            <div class="col-sm-3">
+                <img src="/images/icon-1.png" style="padding-left: 55px;">
             </div>
+           
             <form name="login_form" id="login_form" method="post" action="#" enctype="multipart/form-data" >
             <div class="col-sm-4">
                 <div class="form-group">
@@ -61,16 +67,37 @@
                   <label for="password">Password</label>
                   <input type="password" name="login_password" id="login_password" class="form-control"  placeholder="Enter your password">
                 </div>
-                <button type="button" id="login" name="login" class="btn btn-success">Login</button>
+                <a href="afterLogin.html" type="button" id="login" name="login" class="btn btn-success">Login</a>
             </div><!-- end col -->
-            
+          </div>
           </div><!--  end row -->    
           </form>
         </div>
-    
-</body>
+        <script type="module">
+    //       function validiateForm(){
+    //   var email = document.getElementById("email").value;
+    //   var password = document.getElementById("password").value;
+    //   var confirmPassword = document.getElementById("cpassword").value;
+    //   if (email == "") {
+    //       alert("Please enter your username.");
+    //       return false;
+    //     }
 
-<script type="module">
+    //     if (password == "") {
+    //       alert("Please enter your password.");
+    //       return false;
+    //     }
+
+    //     if (cpassword == "") {
+    //       alert("Please confirm your password.");
+    //       return false;
+    //     }
+    //     if (password != cpassword) {
+    //       alert("Your passwords do not match.");
+    //       return false;
+    //     }
+
+    // }
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
@@ -102,7 +129,9 @@
     document.getElementById("register").addEventListener("click", function() {
       var email =  document.getElementById("email").value;
       var password = document.getElementById("password").value;
+      var confirmPassword = document.getElementById("cpassword").value;
       //For new registration
+      if(password == confirmPassword){
       createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
@@ -110,14 +139,13 @@
         console.log(user);
         alert("Registration successfully!!");
         // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-        console.log(errorMessage);
-        alert(error);
-      });            
+      });
+    }
+    else{
+      alert("Your passwords do not match.");
+           return false;
+    }
+                
     });
     //----- End
 
@@ -156,6 +184,97 @@
         console.log('An error happened.');
       });            
     });
+        </script>
+    
+</body>
+
+<script type="module">
+//     // Import the functions you need from the SDKs you need
+//     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+//     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+//     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"
+
+
+// // TODO: Add SDKs for Firebase products that you want to use
+//     // https://firebase.google.com/docs/web/setup#available-libraries
+  
+//     // Your web app's Firebase configuration
+//     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+//     const firebaseConfig = {
+//       apiKey: "AIzaSyCJinFRl_sPBWh_mZPf4CPloongeKe1E5Q",
+//       authDomain: "fitness-web-aac07.firebaseapp.com",
+//       projectId: "fitness-web-aac07",
+//       storageBucket: "fitness-web-aac07.appspot.com",
+//       messagingSenderId: "117478867142",
+//       appId: "1:117478867142:web:cdf39a8f674e917dc657c7",
+//       measurementId: "G-R6EJ62LE7T"
+//     };
+  
+//     // Initialize Firebase
+//     const app = initializeApp(firebaseConfig);
+//     const analytics = getAnalytics(app);
+//     const auth = getAuth();
+//     console.log(app);
+
+//     //----- New Registration code start    
+//     document.getElementById("register").addEventListener("click", function() {
+//       var email =  document.getElementById("email").value;
+//       var password = document.getElementById("password").value;
+//       //For new registration
+//       createUserWithEmailAndPassword(auth, email, password)
+//       .then((userCredential) => {
+//         // Signed in 
+//         const user = userCredential.user;
+//         console.log(user);
+//         alert("Registration successfully!!");
+//         // ...
+//       })
+//       .catch((error) => {
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//         // ..
+//         console.log(errorMessage);
+//         alert(error);
+//       });            
+//     });
+//     //----- End
+
+//     //----- Login code start    
+//     document.getElementById("login").addEventListener("click", function() {
+//       var email =  document.getElementById("login_email").value;
+//       var password = document.getElementById("login_password").value;
+
+//       signInWithEmailAndPassword(auth, email, password)
+//       .then((userCredential) => {
+//         // Signed in 
+//         const user = userCredential.user;
+//         console.log(user);
+//         alert(user.email+" Login successfully!!!");
+//         document.getElementById('logout').style.display = 'block';
+//         // ...
+//       })
+//       .catch((error) => {
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//         console.log(errorMessage);
+//         alert(errorMessage);
+//       });            
+//     });
+//     //----- End
+
+//     //----- Logout code start    
+//     document.getElementById("logout").addEventListener("click", function() {
+//       signOut(auth).then(() => {
+//         // Sign-out successful.
+//         console.log('Sign-out successful.');
+//         alert('Sign-out successful.');
+//         document.getElementById('logout').style.display = 'none';
+//       }).catch((error) => {
+//         // An error happened.
+//         console.log('An error happened.');
+//       });            
+//     });
     //----- End
+    
   </script>
 </html>

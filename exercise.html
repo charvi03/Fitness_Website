@@ -5,49 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <style>
-    .result {
-      color: red;
-      font-weight: bolder;
-    }
-  </style>
+  <link rel="stylesheet" href="exercise.css" />
   <body>
-    <div class="container">
-      <h2>Exercise and workout suggestion:</h2>
-      <p>
-        Select one muscle group targeted by the exercise:
-        <br />
-        <br /><select id="select1">
-          <option value="abdominals">Abdominals</option>
-          <option value="abductors">Abductors</option>
-          <option value="adductors">Adductors</option>
-          <option value="biceps">Biceps</option>
-          <option value="calves">Calves</option>
-          <option value="chest">Chest</option>
-          <option value="forearms">Forearms</option>
-          <option value="lower_back">Lower Back</option>
-          <option value="middle_back">Middle Back</option>
-          <option value="lats">Lats</option>
-          <option value="triceps">Triceps</option>
-          <option value="neck">Necks</option>
-          <option value="quadriceps">Quadriceps</option>
-        </select>
-      </p>
-      <br />
-      <button onclick="getOption()">Check the routine</button><br />
+    <div class="wrapper">
+      <div class="container">
+        <h2>Exercise and workout suggestion</h2>
+        <div class="input-container">
+          <p>
+            Select one muscle group targeted by the exercise:
+            <select id="select1" class="custom-select">
+              <option value="abdominals">Abdominals</option>
+              <option value="abductors">Abductors</option>
+              <option value="adductors">Adductors</option>
+              <option value="biceps">Biceps</option>
+              <option value="calves">Calves</option>
+              <option value="chest">Chest</option>
+              <option value="forearms">Forearms</option>
+              <option value="lower_back">Lower Back</option>
+              <option value="middle_back">Middle Back</option>
+              <option value="lats">Lats</option>
+              <option value="triceps">Triceps</option>
+              <option value="neck">Necks</option>
+              <option value="quadriceps">Quadriceps</option>
+            </select>
+          </p>
+          <br />
+          <button onclick="getOption()">Check the routine</button><br />
+        </div>
+      </div>
+      <div class="card-container"></div>
     </div>
-    <div class="suggestion">
-      <p>Name of the muscle:</p>
-      <p id="name" class="result"></p>
-      <p>Exercise type:</p>
-      <p id="type" class="result"></p>
-      <p>Difficulty level of the exercise:</p>
-      <p id="diff" class="result"></p>
-      <p>Equipment required:</p>
-      <p id="equip" class="result"></p>
-      <p>Instructions for the exercise:</p>
-      <p id="inst" class="result"></p>
-    </div>
+
     <script>
       const apiKey = "LTn5vNHSA0riVDyddRz5uA==jIbmWG57OnnvDyk4";
       const options = {
@@ -61,12 +49,56 @@
         const apiUrl =
           "https://api.api-ninjas.com/v1/exercises?muscle=" + muscle;
         const response = await fetch(apiUrl, options);
+
         var data = await response.json();
-        document.getElementById("name").innerText = data[0].name;
-        document.getElementById("type").innerText = data[0].type;
-        document.getElementById("diff").innerText = data[0].difficulty;
-        document.getElementById("equip").innerText = data[0].equipment;
-        document.getElementById("inst").innerText = data[0].instructions;
+        console.log(data);
+        const cardContainer = document.querySelector(".card-container");
+
+        while (cardContainer.firstChild) {
+          cardContainer.removeChild(cardContainer.firstChild);
+        }
+
+        data.forEach((cardItems) => {
+          const card = document.createElement("div");
+          card.classList.add("card");
+
+          const cardTitle = document.createElement("h4");
+          cardTitle.textContent = `Muscle:- ${muscle}`;
+
+          const exerciseName = document.createElement("p");
+          exerciseName.textContent = `Name:- ${cardItems.name}`;
+
+          const exercisetype = document.createElement("p");
+          exercisetype.textContent = `Type:- ${cardItems.type}`;
+
+          const exerciseDifficulty = document.createElement("p");
+          exerciseDifficulty.textContent = `Difficulity:- ${cardItems.difficulty}`;
+
+          const exerciseEquipement = document.createElement("p");
+          exerciseEquipement.textContent = `Equipement:- ${cardItems.equipment}`;
+
+          const exerciseInstructions = document.createElement("p");
+          exerciseInstructions.textContent = `Instruction:- ${cardItems.instructions}`;
+
+          card.appendChild(cardTitle);
+          card.appendChild(exerciseName);
+          card.appendChild(exercisetype);
+          card.appendChild(exerciseDifficulty);
+          card.appendChild(exerciseEquipement);
+          card.appendChild(exerciseInstructions);
+          cardContainer.appendChild(card);
+          cardContainer.classList.add("active");
+        });
+
+        // for (let index = 0; index < data.length; index++) {
+        //   // document.getElementById("name").innerText += ` ${index}  ${data[index].name} `;
+
+        //   document.getElementById("name").innerText = data[index].name;
+        //   document.getElementById("type").innerText = data[index].type;
+        //   document.getElementById("diff").innerText = data[index].difficulty;
+        //   document.getElementById("equip").innerText = data[index].equipment;
+        //   document.getElementById("inst").innerText = data[index].instructions;
+        // }
       }
     </script>
   </body>

@@ -70,3 +70,17 @@ async function getPost() {
 }
 
 getPost();
+
+document.getElementById("logout").addEventListener("click", function () {
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      console.log("Sign-out successful.");
+      alert("Sign-out successful.");
+      document.getElementById("logout").style.display = "none";
+    })
+    .catch((error) => {
+      // An error happened.
+      console.log("An error happened.");
+    });
+});

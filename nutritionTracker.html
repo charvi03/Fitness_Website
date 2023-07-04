@@ -3,90 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Nutrition Tracker</title>
   </head>
-  <style>
-    .container {
-      border: 2px solid black;
-      padding: 15px;
-      margin: 5px;
-      background-color: darkturquoise;
-    }
-    #Mytext {
-      background-color: antiquewhite;
-      width: 30%;
-      margin: 5px;
-      padding: 10px;
-      border: 2px dashed black;
-    }
-    #Mybtn {
-      background-color: darkturquoise;
-      border: 5px double black;
-    }
-    #Mybtn:hover {
-      background-color: firebrick;
-      color: white;
-    }
-    .amount {
-      color: darkred;
-    }
-  </style>
+  <link rel="stylesheet" href="nutritionTracker.css" />
+
   <body>
-    <div class="container">
-      <h2>Calorie Tracker</h2>
-      <input
-        type="text"
-        name="item"
-        id="Mytext"
-        placeholder="Enter the item name"
-      /><br /><br />
-      <button id="Mybtn" onclick="getNutrition()">Track Nutrition</button
-      ><br /><br />
-      <p>NAME OF THE ITEM:</p>
-      <p id="name" class="amount"></p>
-      <p>CALORIES OF THE ITEM:</p>
-      <p id="calories" class="amount"></p>
-      <p>PROTIEN OF THE ITEM IN g:</p>
-      <p id="protein_g" class="amount"></p>
-      <p>CHOLESTROL OF THE ITEM IN mg:</p>
-      <p id="cholesterol_mg" class="amount"></p>
-      <p>FAT OF THE ITEM IN g:</p>
-      <p id="fat_total_g" class="amount"></p>
-      <p>CARBOHYDRATES OF THE ITEM IN g:</p>
-      <p id="carbohydrates_total_g" class="amount"></p>
-      <p>FIBER OF THE ITEM IN g:</p>
-      <p id="fiber_g" class="amount"></p>
-      <p>SUGAR OF THE ITEM IN g:</p>
-      <p id="sugar_g"></p>
+    <div class="wrapper">
+      <h1>Nutrition Tracker</h1>
+
+      <div class="display-container">
+        <input
+          type="text"
+          name="item"
+          class="display"
+          id="Mytext"
+          placeholder="Enter the item name"
+        />
+        <button id="track-btn">Track Nutrition</button>
+      </div>
+
+      <div class="input-container">
+        <p id="name" class="amount"></p>
+        <p id="calories" class="amount"></p>
+        <p id="protein_g" class="amount"></p>
+        <p id="cholesterol_mg" class="amount"></p>
+        <p id="fat_total_g" class="amount"></p>
+        <p id="carbohydrates_total_g" class="amount"></p>
+        <p id="fiber_g" class="amount"></p>
+        <p id="sugar_g"></p>
+      </div>
     </div>
   </body>
 
   <script>
-    const btnel = document.getElementById("Mybtn");
-    const apiKey = "LTn5vNHSA0riVDyddRz5uA==jIbmWG57OnnvDyk4";
-    const options = {
+    const btnel = document.querySelector("#track-btn");
+    const inputContainer = document.querySelector(".input-container");
+    const foodname = document.querySelector("#name");
+    const cal = document.querySelector("#calories");
+    const protine = document.querySelector("#protein_g");
+    const cholesterol = document.querySelector("#cholesterol_mg");
+    const fat = document.querySelector("#fat_total_g");
+    const carbo = document.querySelector("#carbohydrates_total_g");
+    const fiber = document.querySelector("#fiber_g");
+    const sugar = document.querySelector("#sugar_g");
+    const apiKeycal = "LTn5vNHSA0riVDyddRz5uA==jIbmWG57OnnvDyk4";
+    const optionscal = {
       method: "GET",
       headers: {
-        "X-Api-Key": apiKey,
+        "X-Api-Key": apiKeycal,
       },
     };
+
     async function getNutrition() {
-      var category = document.getElementById("Mytext").value;
-      const apiUrl =
-        "https://api.api-ninjas.com/v1/nutrition?query=" + category;
-      const response = await fetch(apiUrl, options);
-      var data = await response.json();
-      console.log(data[0]);
-      document.getElementById("name").innerText = data[0].name;
-      document.getElementById("calories").innerText = data[0].calories;
-      document.getElementById("protein_g").innerText = data[0].protein_g;
-      document.getElementById("cholesterol_mg").innerText =
-        data[0].cholesterol_mg;
-      document.getElementById("fat_total_g").innerText = data[0].fat_total_g;
-      document.getElementById("carbohydrates_total_g").innerText =
-        data[0].carbohydrates_total_g;
-      document.getElementById("fiber_g").innerText = data[0].fiber_g;
-      document.getElementById("sugar_g").innerText = data[0].sugar_g;
+      let categoryCal = document.getElementById("Mytext").value;
+      const apiUrlCal =
+        "https://api.api-ninjas.com/v1/nutrition?query=" + categoryCal;
+      const response = await fetch(apiUrlCal, optionscal);
+
+      let data = await response.json();
+
+      console.log(data);
+      inputContainer.classList.add("active");
+      foodname.innerText = `Name: ${data[0].name}`;
+      cal.innerText = `Calories: ${data[0].calories}`;
+      protine.innerText = `Protine: ${data[0].protein_g}`;
+      cholesterol.innerText = `Cholesterol: ${data[0].cholesterol_mg}`;
+      fat.innerText = `Fat: ${data[0].fat_total_g}`;
+      carbo.innerText = `Carbohydrates: ${data[0].carbohydrates_total_g}`;
+      fiber.innerText = `Fiber: ${data[0].fiber_g}`;
+      sugar.innerText = `Sugar: ${data[0].sugar_g}`;
     }
+
+    btnel.addEventListener("click", getNutrition);
   </script>
 </html>
