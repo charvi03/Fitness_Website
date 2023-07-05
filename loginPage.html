@@ -67,13 +67,15 @@
                   <label for="password">Password</label>
                   <input type="password" name="login_password" id="login_password" class="form-control"  placeholder="Enter your password">
                 </div>
-                <a href="afterLogin.html" type="button" id="login" name="login" class="btn btn-success">Login</a>
+                 <a type="button" id="login" name="login" class="btn btn-success">Login</a> 
+                <!-- <a href="afterLogin.html" type="button" id="login" name="login" class="btn btn-success">Login</a> -->
             </div><!-- end col -->
           </div>
           </div><!--  end row -->    
           </form>
         </div>
         <script type="module">
+
     //       function validiateForm(){
     //   var email = document.getElementById("email").value;
     //   var password = document.getElementById("password").value;
@@ -131,7 +133,7 @@
       var password = document.getElementById("password").value;
       var confirmPassword = document.getElementById("cpassword").value;
       //For new registration
-      if(password == confirmPassword){
+      if(password === confirmPassword){
       createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
@@ -147,7 +149,12 @@
     }
                 
     });
-    //----- End
+
+   document.querySelector('#login').addEventListener('click', ()=>{
+     window.location.href= 'afterLogin.html';
+   });
+
+  //End
 
     //----- Login code start    
     document.getElementById("login").addEventListener("click", function() {
